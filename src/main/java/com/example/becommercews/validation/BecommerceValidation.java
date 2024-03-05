@@ -12,9 +12,6 @@ public class BecommerceValidation {
     public static final String IS_EMAIL_PRESENT = "Email is already taken!";
     public static final String IS_USER_PRESENT = "User is not found!";
     public static final String IS_USER_VALID = "User is not valid!";
-    public static  final String IS_PRODUCT_PRESENT="The product with given name is already exist";
-    public static final String IS_NOT_PRODUCT_PRESENT="The product is not found!";
-    public static final String IS_NOT_PRESENT_ADDRESS="The address is not found!";
 
     public static void checkEmptyOrNull(String value, String field) {
         if (value == null || value.isEmpty())

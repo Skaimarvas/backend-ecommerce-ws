@@ -30,8 +30,11 @@ public class AuthController {
     public UserDto signup(@RequestBody SignupDto signupDto){
         User newUser = authenticationService.register(signupDto.getName(), signupDto.getEmail(), signupDto.getPassword(), signupDto.getRoleId());
         Store store = signupDto.getStore();
-        storeService.save(store);
+        store.setUser(newUser);
+        store.getUser().setId(newUser.getId());
+        Store newStore =  storeService.save(store);
         newUser.setStore(store);
+        newUser.getStore().setId(newStore.getId());
         return new UserDto(newUser.getId(), newUser.getName(), newUser.getEmail());
     }
 
