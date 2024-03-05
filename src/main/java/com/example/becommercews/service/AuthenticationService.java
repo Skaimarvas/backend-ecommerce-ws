@@ -28,22 +28,25 @@ public class AuthenticationService {
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
-    public User register(String name, String email, String password,String code){
+    public User register(String name, String email, String password,long id){
         Role userRole = new Role();
         String encodedPassword = passwordEncoder.encode(password);
-        Optional<Role> optionalRole = roleRepository.findByCode(code);
+        Optional<Role> optionalRole = roleRepository.findById(id);
         if(optionalRole.isPresent()){
             userRole = optionalRole.get();
             User user = new User();
             user.setName(name);
             user.setEmail(email);
             user.setPassword(encodedPassword);
+            user.setRole(userRole);
             userRepository.save(user);
             return user;
         } else {
             throw new BecommerceException("Role mustn't empty or match roles on our system", HttpStatus.BAD_REQUEST);
         }
     }
+
+
 
     public UserDto login (LoginDto loginDto){
         BecommerceValidation.checkEmptyOrNull(loginDto.email(),"email");
